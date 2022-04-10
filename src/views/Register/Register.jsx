@@ -4,12 +4,12 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
 import { useNavigate } from 'react-router-dom'
 import InputGroup from "../../components/InputGroup"
-import { register as registerRequest } from '../../services/AuthService'
+import { register as registerRequest } from '../../services/UsersService'
 
 const schema = yup.object({
   email: yup.string().email().required(),
   name: yup.string().required(),
-  password: yup.string().min(8).required()
+  password: yup.string().min(8, 'holi').required()
 }).required();
 
 const Register = () => {
