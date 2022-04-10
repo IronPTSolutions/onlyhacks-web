@@ -7,20 +7,30 @@ import Register from "./views/Register/Register";
 import Login from "./views/Login/Login";
 import Profile from "./views/Profile/Profile";
 import Favourites from "./views/Favourites/Favourites";
+import ProtectedRoute from "./guards/ProtectedRoute";
+import { useAuthContext } from "./contexts/AuthContext";
 
 function App() {
+  const { isAuthenticationFetched } = useAuthContext()
   return (
     <div className="App">
       <Navbar />
 
       <div className="container">
-        <Routes>
-          <Route path="/register" element={<Register />} />
-          <Route path="/login" element={<Login />} />
+        {!isAuthenticationFetched ? (
+          <p>Loading...</p>
+        ) : (
+          <Routes>
+            <Route path="register" element={<Register />} />
+            <Route path="login" element={<Login />} />
 
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/favourites" element={<Favourites />} />
-        </Routes>
+            <Route path="/" element={<ProtectedRoute/>} >
+              <Route path="profile" element={<Profile />} />
+              <Route path="favourites" element={<Favourites />} />
+            </Route>
+
+          </Routes>
+        )}
       </div>
     </div>
   );
