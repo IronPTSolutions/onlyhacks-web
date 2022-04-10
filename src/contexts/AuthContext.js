@@ -1,7 +1,9 @@
-import { createContext, useState } from 'react'
-import { setToken } from '../store/accessTokenStore'
+import { createContext, useState, useContext } from 'react'
+import { setToken } from '../store/AccessTokenStore'
 
 const AuthContext = createContext()
+
+export const useAuthContext = () => useContext(AuthContext)
 
 export const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useState()
@@ -11,11 +13,16 @@ export const AuthContextProvider = ({ children }) => {
   }
 
   const getCurrentUser = () => {
-    
+
+  }
+
+  const value = {
+    user,
+    login
   }
 
   return (
-    <AuthContext.Provider>
+    <AuthContext.Provider value={value}>
       {children}
     </AuthContext.Provider>
   )

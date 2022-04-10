@@ -4,7 +4,8 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
 import { useNavigate } from 'react-router-dom'
 import InputGroup from "../../components/InputGroup"
-import { login } from '../../services/AuthService';
+import { login as loginRequest } from '../../services/AuthService';
+import { useAuthContext } from '../../contexts/AuthContext';
 
 const schema = yup.object({
   email: yup.string().email().required(),
@@ -12,6 +13,8 @@ const schema = yup.object({
 }).required();
 
 const Login = () => {
+  const { login } = useAuthContext()
+
   const [error, setError] = useState()
   const [isSubmitting, setIsSubmitting] = useState(false)
   const navigate = useNavigate()
@@ -23,9 +26,10 @@ const Login = () => {
     setError(undefined)
     setIsSubmitting(true)
 
-    login(data)
+    loginRequest(data)
       .then(response => {
         console.log(response);
+        login(response.access_token)
         navigate('/profile')
       })
       .catch(err => {
