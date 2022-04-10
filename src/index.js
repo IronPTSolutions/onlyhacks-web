@@ -7,7 +7,10 @@ import {
 } from "react-router-dom";
 import { AuthContextProvider } from './contexts/AuthContext';
 import './index.css';
+
+// bootstrap
 import './assets/stylesheets/custom.scss';
+// import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap/dist/js/bootstrap.bundle'
 
 const container = document.getElementById('root');
