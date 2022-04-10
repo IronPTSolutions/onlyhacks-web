@@ -26,6 +26,7 @@ const Login = () => {
     login(data)
       .then(response => {
         console.log(response);
+        navigate('/profile')
       })
       .catch(err => {
         setError(err?.response?.data?.message)
