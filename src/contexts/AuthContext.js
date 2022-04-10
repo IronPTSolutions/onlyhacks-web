@@ -1,6 +1,7 @@
 import { createContext, useState, useContext, useEffect } from 'react'
-import { setToken, getAccessToken } from '../store/AccessTokenStore'
+import { setToken, getAccessToken, logout } from '../store/AccessTokenStore'
 import { getCurrentUser } from '../services/UsersService'
+import { verifyJWT } from '../utils/jwtHelper'
 
 const AuthContext = createContext()
 
@@ -23,7 +24,11 @@ export const AuthContextProvider = ({ children }) => {
   useEffect(() => {
     // Si existe token, me traigo al usuario
     if (getAccessToken()) {
-      getUser()
+      if ( !verifyJWT(getAccessToken()) ) {
+        logout()
+      } else {
+        getUser()
+      }
     }
   }, [])
 
