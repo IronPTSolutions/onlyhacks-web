@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { getAccessToken } from '../store/AccessTokenStore';
+import { getAccessToken, logout } from '../store/AccessTokenStore';
 
 // const http = axios.create({
 //   baseURL: 'http://localhost:3001/api',
@@ -30,8 +30,25 @@ const createHttp = (useAccessToken = false) => {
   )
 
   http.interceptors.response.use(
-    (response) => response.data
-  );
+    (response) => response.data,
+    (error) => {
+      // Any status codes that falls outside the range of 2xx cause this function to trigger
+      // Do something with response error
+
+      if (error?.response?.status && [401, 403].includes(error.response.status)) {
+        if (getAccessToken()) {
+          // delete token
+          logout()
+
+          if (window.location.pathname !== '/login') {
+            window.location.assign('/login')
+          }
+        }
+      }
+
+      return Promise.reject(error);
+    }
+  )
 
   return http
 }
