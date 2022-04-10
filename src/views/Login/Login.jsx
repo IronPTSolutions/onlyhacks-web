@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import InputGroup from "../../components/InputGroup"
 import { login as loginRequest } from '../../services/AuthService';
 import { useAuthContext } from '../../contexts/AuthContext';
@@ -13,11 +13,15 @@ const schema = yup.object({
 }).required();
 
 const Login = () => {
+  const navigate = useNavigate()
+  let location = useLocation();
+
+  let from = location.state?.from?.pathname || "/profile";
+
   const { login } = useAuthContext()
 
   const [error, setError] = useState()
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const navigate = useNavigate()
   const { register, handleSubmit, formState:{ errors } } = useForm({
     resolver: yupResolver(schema)
   });
@@ -29,8 +33,8 @@ const Login = () => {
     loginRequest(data)
       .then(response => {
         console.log(response);
-        login(response.access_token)
-        navigate('/profile')
+
+        login(response.access_token, () => navigate(from, { replace: true }))
       })
       .catch(err => {
         setError(err?.response?.data?.message)

@@ -11,10 +11,10 @@ export const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useState()
   const [isAuthenticationFetched, setIsAuthenticationFetched] = useState(false)
 
-  const login = (token) => {
+  const login = (token, navigateCb) => {
     setToken(token)
 
-    getUser()
+    getUser(navigateCb)
   }
 
   const getUser = (cb) => {
