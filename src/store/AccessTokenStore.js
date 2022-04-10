@@ -7,7 +7,7 @@ export const setToken = (token) => {
   localStorage.setItem(ACCESS_TOKEN_KEY, token)
 }
 
-export const getToken = () => {
+export const getAccessToken = () => {
   return accessToken
 }
 
