@@ -1,5 +1,3 @@
-import createHttp from './BaseService'
+import http from './BaseService'
 
-const http = createHttp({ useAccessToken: true })
-
-export const getCurrentUser = () => http.get('/users/me')
+export const register = (data) => http.post('/users', data)

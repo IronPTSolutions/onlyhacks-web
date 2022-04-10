@@ -7,16 +7,13 @@ import {
 } from "react-router-dom";
 import './index.css';
 import './assets/stylesheets/custom.scss';
-import { AuthContextProvider } from './contexts/AuthContext';
 
 
 const container = document.getElementById('root');
 const root = createRoot(container);
 root.render(
   <BrowserRouter>
-    <AuthContextProvider>
-      <App />
-    </AuthContextProvider>
+    <App />
   </BrowserRouter>
 );
 
