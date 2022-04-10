@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { getAccessToken } from '../store/accessTokenStore';
+import { getAccessToken } from '../store/AccessTokenStore';
 
 // const http = axios.create({
 //   baseURL: 'http://localhost:3001/api',
@@ -24,12 +24,16 @@ const createHttp = (useAccessToken = false) => {
 
         request.headers.common.Authorization = `Bearer ${getAccessToken()}`
       }
+
+      return request
     }
   )
 
   http.interceptors.response.use(
     (response) => response.data
   );
+
+  return http
 }
 
 export default createHttp

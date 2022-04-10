@@ -1,5 +1,6 @@
-import { createContext, useState, useContext } from 'react'
-import { setToken } from '../store/AccessTokenStore'
+import { createContext, useState, useContext, useEffect } from 'react'
+import { setToken, getAccessToken } from '../store/AccessTokenStore'
+import { getCurrentUser } from '../services/UsersService'
 
 const AuthContext = createContext()
 
@@ -12,9 +13,19 @@ export const AuthContextProvider = ({ children }) => {
     setToken(token)
   }
 
-  const getCurrentUser = () => {
-
+  const getUser = () => {
+    getCurrentUser()
+      .then(user => {
+        setUser(user)
+      })
   }
+
+  useEffect(() => {
+    // Si existe token, me traigo al usuario
+    if (getAccessToken()) {
+      getUser()
+    }
+  }, [])
 
   const value = {
     user,

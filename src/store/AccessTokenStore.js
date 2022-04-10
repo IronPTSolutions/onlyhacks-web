@@ -1,6 +1,6 @@
 const ACCESS_TOKEN_KEY = 'access_token'
 
-let accessToken = ''
+let accessToken = localStorage.getItem(ACCESS_TOKEN_KEY) || ''
 
 export const setToken = (token) => {
   accessToken = token
