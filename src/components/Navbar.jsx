@@ -52,7 +52,7 @@ const Navbar = () => {
                   </NavLink>
                 </li>
                 <li className="nav-item">
-                  <button onClick={logout}>
+                  <button className="btn btn-danger" onClick={logout}>
                     Logout
                   </button>
                 </li>
