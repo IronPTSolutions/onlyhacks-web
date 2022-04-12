@@ -63,7 +63,9 @@ const EditPost = () => {
             name="content"
             onFocusCb={() => setErrors(false)}
           />
-          <button className={`btn btn-${isSubmitting ? 'secondary' : 'primary'}`}>{isSubmitting ? 'Creating user...' : 'Submit'}</button>
+         <div className="text-center wv-100  mt-4 ">
+            <button className={`btn w-100 btn-${isSubmitting ? 'secondary' : 'primary'}`}>{isSubmitting ? 'Creating user...' : 'Submit'}</button>
+          </div>
         </form>
       </div>
     </FormProvider>

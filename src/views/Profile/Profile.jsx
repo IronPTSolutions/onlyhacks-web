@@ -12,7 +12,7 @@ const Profile = () => {
   }
   return (
     <div className="Profile">
-      <h1 className="mt-3">Profile</h1>
+      <h1 className="my-4 pb-3"><b>Profile</b></h1>
       <h3>
         My posts
         <Link to="/post/new" className="btn btn-light border ms-3">
@@ -21,20 +21,19 @@ const Profile = () => {
       </h3>
       <hr />
       <div>
-
         <ul className="list-group">
-          {user.posts.map(post => {
+          {user.posts.map((post, i) => {
             return (
-              <li key={post.id} className="list-group-item d-flex justify-content-between">
-                <Link to={`/post/${post.id}`}>
-                  <p>{post.title}</p>
+              <li key={post.id} className="list-group-item d-flex justify-content-between align-items-center">
+                <Link className="text-reset text-decoration-none" to={`/post/${post.id}`}>
+                  <p className="m-0">{i + 1}. {post.title}</p>
                 </Link>
                 <div>
-                <Link to={`/post/${post.id}/edit`}>
-                  <i class="fas fa-edit me-4"></i>
+                <Link className="btn btn-light btn-small me-3 border" to={`/post/${post.id}/edit`}>
+                  <i className="fas fa-edit"></i>
                 </Link>
                   <button className="btn btn-danger btn-xs pull-right remove-item" onClick={() => handleDelete(post.id)}>
-                    <i class="fas fa-trash"></i>
+                    <i className="fas fa-trash"></i>
                   </button>
                 </div>
               </li>
