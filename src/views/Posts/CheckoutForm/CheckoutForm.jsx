@@ -7,14 +7,15 @@ import {
   useElements,
 } from '@stripe/react-stripe-js';
 import { payment, getUserDetail } from '../../../services/UsersService';
+import { useParams, useNavigate } from 'react-router-dom';
 import './CheckoutForm.css'
-import { useParams } from 'react-router-dom';
 
 const StripeForm = () => {
   const stripe = useStripe();
   const elements = useElements();
   const [user, setUser] = useState();
   const { userId } = useParams()
+  const navigate = useNavigate()
 
   useEffect(() => {
     getUserDetail(userId)
@@ -37,13 +38,18 @@ const StripeForm = () => {
 
     } else if (paymentMethod) {
       const { id } = paymentMethod
-      payment({ amount: 100, id: id })
-      .then(result =>  console.log(result))
+      payment({ amount: 100, subUserId: userId, paymentId: id })
+      .then(result => {
+        navigate("/subscriptions")
+      })
     }
   };
 
   return (
     <form onSubmit={handleSubmit}>
+      <div className="my-4">
+       <h5>Subscribe to {user?.email} posts!</h5>
+      </div>
       <CardElement/>
       <button type="submit" disabled={!stripe || !elements}>
         Subscribe!
@@ -52,7 +58,7 @@ const StripeForm = () => {
   );
 };
 
-const stripePromise = loadStripe('pk_test_zcTEmEh9DNzx17DvNLibaUVS');
+const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_KEY);
 
 const CheckoutForm = () => (
   <div className="d-flex text-center align-items-center flex-column justify-content-center">

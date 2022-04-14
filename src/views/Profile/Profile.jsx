@@ -4,12 +4,15 @@ import { deletePost } from "../../services/PostService";
 
 const Profile = () => {
   const { user, getUser } = useAuthContext()
+
   const handleDelete = (id) => {
     deletePost(id)
       .then(() => {
         getUser()
       })
   }
+
+  console.log(user)
   return (
     <div className="Profile">
       <h1 className="my-4 pb-3"><b>Profile</b></h1>

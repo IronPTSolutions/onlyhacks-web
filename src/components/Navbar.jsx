@@ -48,7 +48,7 @@ const Navbar = () => {
                     className="nav-link"
                     to="/favourites"
                   >
-                    Favourites
+                    Subscriptions
                   </NavLink>
                 </li>
                 <li className="nav-item">
