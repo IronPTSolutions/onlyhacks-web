@@ -16,6 +16,11 @@ const Profile = () => {
   return (
     <div className="Profile">
       <h1 className="my-4 pb-3"><b>Profile</b></h1>
+      {user.image ? (
+        <img src={user.image} alt="" />
+      ) : (
+        <img src="https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png" alt="" />
+      )}
       <h3>
         My posts
         <Link to="/post/new" className="btn btn-light border ms-3">
