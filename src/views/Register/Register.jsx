@@ -1,4 +1,4 @@
-import { useState } from 'react' 
+import { useState } from 'react'
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
@@ -9,7 +9,7 @@ import { register as registerRequest } from '../../services/AuthService'
 const schema = yup.object({
   email: yup.string().email().required(),
   name: yup.string().required(),
-  password: yup.string().min(8, 'holi').required()
+  password: yup.string().min(8, 'Password must contain at least 8 characters').required()
 }).required();
 
 const Register = () => {
